@@ -361,6 +361,29 @@
           Quantity: 10
 
 - type: entity
+  parent: PlushieLizard
+  id: PlushieFelineLizard
+  name: feline lizard plushie
+  description: An adorable stuffed toy that resembles a lizardperson wearing a pair of cat ears. NYA!
+  components:
+  - type: Sprite
+    state: plushie_felinelizard
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: JuiceThatMakesYouNya
+        Quantity: 30
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Fiber
+          Quantity: 10
+        - ReagentId: JuiceThatMakesYouNya
+          Quantity: 10
+
+- type: entity
   parent: BasePlushie
   id: PlushieDiona
   name: diona plushie
