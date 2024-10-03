@@ -22,6 +22,6 @@ public abstract class PdaMessagingSystem : EntitySystem
         ev.Uid = uid;
         ev.Name = idComp.FullName;
 
-        RaiseLocalEvent(ev);
+        RaiseLocalEvent(uid, ref ev);
     }
 }

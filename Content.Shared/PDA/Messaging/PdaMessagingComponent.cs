@@ -1,4 +1,5 @@
 using Robust.Shared.GameStates;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.PDA.Mesaging;
 
@@ -15,6 +16,7 @@ public sealed partial class PdaMessagingComponent : Component
     public EntityUid? ConnectedServer;
 }
 
+[Serializable, NetSerializable]
 public class PdaMessage
 {
     public string RecieverName { get; set; } = String.Empty;
