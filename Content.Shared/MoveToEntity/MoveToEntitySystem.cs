@@ -48,10 +48,17 @@ public sealed class MoveToEntitySystem : EntitySystem
             if (entPos.MapId != uidPos.MapId)
                 continue;
 
-            var impulse = Vector2.Subtract(uidPos.Position, entPos.Position);
-            impulse *= component.Scale;
+            var dir = Vector2.Subtract(entPos.Position, uidPos.Position).Normalized();
 
-            _physics.ApplyLinearImpulse(ent, impulse);
+            if (dir.Length() != component.Offset)
+            {
+                _physics.SetLinearVelocity(ent, Vector2.Zero);
+                var newPos = Vector2.Add(uidPos.Position, dir.Normalized() * component.Offset);
+
+                var impulse = Vector2.Subtract(newPos, entPos.Position);
+                impulse *= component.Scale;
+                _physics.ApplyLinearImpulse(ent, impulse);
+            }
         }
     }
 }

@@ -10,7 +10,10 @@ public sealed partial class MoveToEntityComponent : Component
     public float Radius = 3f;
 
     [DataField]
-    public float Scale = 25;
+    public float Scale = 25f;
+
+    [DataField]
+    public float Offset = 0.5f;
 
     [DataField(required: true)]
     public EntityWhitelist? Whitelist;
