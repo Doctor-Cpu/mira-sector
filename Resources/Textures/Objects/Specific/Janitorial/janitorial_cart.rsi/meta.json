@@ -55,6 +55,10 @@
             "name": "cart_plunger",
             "directions": 4
         },
+		{
+            "name": "cart_broom",
+            "directions": 4
+        },
         {
             "name": "icon-cart"
         },

@@ -335,3 +335,41 @@
     - type: Fiber
       fiberColor: fibers-white
     - type: DnaSubstanceTrace
+
+- type: entity
+  parent: BaseItem
+  name: broom
+  id: BroomItem
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Janitorial/broom.rsi
+    state: broom
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 10
+    soundHit:
+      collection: MetalThud
+  - type: Wieldable
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 5
+  - type: UseDelay
+    delay: 1
+  - type: Item
+    size: Large
+  - type: MoveToEntity
+    whitelist:
+      tags:
+      - Trash
+    sprite: Objects/Specific/Janitorial/broom.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 50
+  - type: Tag
+    tags:
+      - Broom
+  - type: GuideHelp
+    guides:
+    - Janitorial

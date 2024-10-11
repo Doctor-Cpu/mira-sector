@@ -247,6 +247,9 @@
   id: BrimFlatcapGrey
 
 - type: Tag
+  id: Broom
+
+- type: Tag
   id: Brutepack
 
 - type: Tag
