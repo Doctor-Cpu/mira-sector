@@ -360,6 +360,8 @@
   - type: Item
     size: Large
   - type: MoveToEntity
+    enabled: false
+    enableWhenHeld: true
     whitelist:
       tags:
       - Trash
