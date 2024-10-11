@@ -22,7 +22,7 @@ public sealed class MoveToEntitySystem : EntitySystem
 
     private void OnAfterInteract(EntityUid uid, MoveToEntityComponent component, ref AfterInteractEvent args)
     {
-        if (!args.CanReach || args.Target == null || args.Handled)
+        if (!args.CanReach ||  args.Handled)
             return;
 
         MoveInRange(uid, component, args.ClickLocation);
@@ -49,8 +49,9 @@ public sealed class MoveToEntitySystem : EntitySystem
                 continue;
 
             var impulse = Vector2.Subtract(uidPos.Position, entPos.Position);
+            impulse *= component.Scale;
 
-            _physics.ApplyLinearImpulse(ent, impulse * component.Scale);
+            _physics.ApplyLinearImpulse(ent, impulse);
         }
     }
 }
