@@ -32,12 +32,14 @@
   - type: IgnoreUIRange
   - type: StationAiHeld
   - type: StationAiOverlay
+  - type: StationAiMultiCam
   - type: ActionGrant
     actions:
     - ActionJumpToCore
     - ActionShowJobIcons
     - ActionSurvCameraLights
     - ActionAIViewLaws
+    - ActionMultiCam
   - type: UserInterface
     interfaces:
       enum.RadarConsoleUiKey.Key:

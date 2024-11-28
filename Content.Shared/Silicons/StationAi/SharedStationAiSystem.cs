@@ -17,6 +17,7 @@ using Content.Shared.StationAi;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
+using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
@@ -74,6 +75,7 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         InitializeAirlock();
         InitializeHeld();
         InitializeLight();
+        InitializeMulitCam();
 
         SubscribeLocalEvent<StationAiWhitelistComponent, BoundUserInterfaceCheckRangeEvent>(OnAiBuiCheck);
 
@@ -285,12 +287,17 @@ public abstract partial class SharedStationAiSystem : EntitySystem
 
     private bool SetupEye(Entity<StationAiCoreComponent> ent)
     {
+        return SetupEye(ent, Transform(ent.Owner).Coordinates);
+    }
+
+    private bool SetupEye(Entity<StationAiCoreComponent> ent, EntityCoordinates coordinates)
+    {
         if (ent.Comp.RemoteEntity != null)
             return false;
 
         if (ent.Comp.RemoteEntityProto != null)
         {
-            ent.Comp.RemoteEntity = SpawnAtPosition(ent.Comp.RemoteEntityProto, Transform(ent.Owner).Coordinates);
+            ent.Comp.RemoteEntity = SpawnAtPosition(ent.Comp.RemoteEntityProto, coordinates);
             Dirty(ent);
         }
 
@@ -405,6 +412,11 @@ public abstract partial class SharedStationAiSystem : EntitySystem
 }
 
 public sealed partial class JumpToCoreEvent : InstantActionEvent
+{
+
+}
+
+public sealed partial class MultiCamEvent : InstantActionEvent
 {
 
 }

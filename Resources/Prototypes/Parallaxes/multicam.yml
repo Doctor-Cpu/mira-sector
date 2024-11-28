@@ -1,0 +1,8 @@
+- type: parallax
+  id: MultiCam
+  layers:
+    - texture:
+        !type:ImageParallaxRsiSource
+        path: "/Resources/Textures/Effects/pic_in_pic.rsi"
+      slowness: 0
+      scale: "8, 8"

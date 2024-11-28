@@ -51,6 +51,15 @@
 		},
 		{
 			"name": "door_overcharge_off"
+		},
+		{
+			"name": "camera"
+		},
+		{
+			"name": "multicam"
+		},
+		{
+			"name": "new_cam"
 		}
 	]
 }
