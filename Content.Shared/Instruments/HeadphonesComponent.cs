@@ -1,5 +1,6 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.GameStates;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Instruments;
 
@@ -14,4 +15,15 @@ public partial class HeadphonesComponent : Component
 
     [ViewVariables]
     public bool IsWorn = false;
+}
+
+[Serializable, NetSerializable]
+public sealed class HeadphonesGetPlayerEvent : EntityEventArgs
+{
+    public NetEntity Player;
+
+    public HeadphonesGetPlayerEvent(NetEntity player)
+    {
+        Player = player;
+    }
 }
