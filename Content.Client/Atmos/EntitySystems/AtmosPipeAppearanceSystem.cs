@@ -1,3 +1,4 @@
+using Content.Client.DisplacementMap;
 using Content.Client.SubFloor;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
@@ -6,6 +7,7 @@ using JetBrains.Annotations;
 using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
 using Robust.Shared.Serialization.TypeSerializers.Implementations;
+using System.Linq;
 
 namespace Content.Client.Atmos.EntitySystems;
 
@@ -13,6 +15,7 @@ namespace Content.Client.Atmos.EntitySystems;
 public sealed class AtmosPipeAppearanceSystem : EntitySystem
 {
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly DisplacementMapSystem _displacement = default!;
 
     public override void Initialize()
     {
@@ -73,6 +76,13 @@ public sealed class AtmosPipeAppearanceSystem : EntitySystem
         // transform connected directions to local-coordinates
         var connectedDirections = worldConnectedDirections.RotatePipeDirection(-Transform(uid).LocalRotation);
 
+        foreach (var key in component.RevealedLayers)
+        {
+            args.Sprite.RemoveLayer(key);
+        }
+
+        component.RevealedLayers.Clear();
+
         foreach (PipeConnectionLayer layerKey in Enum.GetValues(typeof(PipeConnectionLayer)))
         {
             if (!args.Sprite.LayerMapTryGet(layerKey, out var key))
@@ -87,7 +97,17 @@ public sealed class AtmosPipeAppearanceSystem : EntitySystem
             if (!visible) continue;
 
             layer.Color = color;
+
+            if (!_appearance.TryGetData<int>(uid, PipeVisuals.ZLayer, out var zLayer, args.Component))
+                continue;
+
+            if (component.Displacements.ContainsKey(zLayer))
+            {
+                _displacement.TryAddDisplacement(component.Displacements[zLayer], args.Sprite, key, layerKey.ToString(), component.RevealedLayers);
+                component.RevealedLayers.Add(layerKey.ToString());
+            }
         }
+
     }
 
     private SpriteComponent.DirectionOffset ToOffset(PipeConnectionLayer layer)

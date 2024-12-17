@@ -28,6 +28,15 @@ namespace Content.Server.NodeContainer.Nodes
         /// </summary>
         public PipeDirection CurrentPipeDirection { get; private set; }
 
+        [DataField]
+        public int MaxZLayer = 3;
+
+        [DataField]
+        public int MinZLayer = 0;
+
+        [ViewVariables]
+        public int ZLayer = 0;
+
         private HashSet<PipeNode>? _alwaysReachable;
 
         public void AddAlwaysReachable(PipeNode pipeNode)
@@ -139,7 +148,6 @@ namespace Content.Server.NodeContainer.Nodes
                 return;
 
             // update valid pipe directions
-
             if (!RotationsEnabled)
             {
                 CurrentPipeDirection = OriginalPipeDirection;
@@ -179,7 +187,7 @@ namespace Content.Server.NodeContainer.Nodes
 
             var pos = grid.TileIndicesFor(xform.Coordinates);
 
-            for (var i = 0; i < PipeDirectionHelpers.PipeDirections; i++)
+            for (var i = 0; i < PipeDirectionHelpers.AllPipeDirections; i++)
             {
                 var pipeDir = (PipeDirection) (1 << i);
 
@@ -215,16 +223,29 @@ namespace Content.Server.NodeContainer.Nodes
         protected IEnumerable<PipeNode> PipesInDirection(Vector2i pos, PipeDirection pipeDir, MapGridComponent grid,
             EntityQuery<NodeContainerComponent> nodeQuery)
         {
-            var offsetPos = pos.Offset(pipeDir.ToDirection());
+            var direction = pipeDir.ToDirection();
 
-            foreach (var entity in grid.GetAnchoredEntities(offsetPos))
+            if (direction != Direction.Invalid)
+                pos = pos.Offset(direction);
+
+            foreach (var entity in grid.GetAnchoredEntities(pos))
             {
                 if (!nodeQuery.TryGetComponent(entity, out var container))
                     continue;
 
                 foreach (var node in container.Nodes.Values)
                 {
-                    if (node is PipeNode pipe)
+                    if (node is not PipeNode pipe)
+                        continue;
+
+                    var zLayerOffset = 0;
+
+                    if (pipeDir == PipeDirection.Up)
+                        zLayerOffset = 1;
+                    else if (pipeDir == PipeDirection.Down)
+                        zLayerOffset = -1;
+
+                    if (ZLayer + zLayerOffset == pipe.ZLayer)
                         yield return pipe;
                 }
             }

@@ -1,0 +1,56 @@
+- type: entity
+  parent: GasPipeStraight
+  id: GasPipeVertical
+  suffix: Vertical
+  components:
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: Vertical
+  - type: Sprite
+    layers:
+      - state: pipeVertical
+        map: [ "enum.PipeVisualLayers.Pipe" ]
+  - type: Construction
+    graph: GasPipe
+    node: vertical
+
+- type: entity
+  parent: GasPipeBend
+  id: GasPipeBendUp
+  suffix: Bend Up
+  components:
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: SUBend
+  - type: Sprite
+    layers:
+      - state: pipeBendUp
+        map: [ "enum.PipeVisualLayers.Pipe" ]
+  - type: Construction
+    graph: GasPipe
+    node: bendUp
+
+- type: entity
+  parent: GasPipeBend
+  id: GasPipeBendDown
+  suffix: Bend Down
+  components:
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: SDBend
+  - type: Sprite
+    layers:
+      - state: pipeBendDown
+        map: [ "enum.PipeVisualLayers.Pipe" ]
+  - type: Construction
+    graph: GasPipe
+    node: bendDown

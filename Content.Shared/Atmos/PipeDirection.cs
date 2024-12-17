@@ -5,7 +5,8 @@ namespace Content.Shared.Atmos
     [Serializable, NetSerializable]
     public enum PipeVisuals
     {
-        VisualState
+        VisualState,
+        ZLayer
     }
 
     [Flags]
@@ -19,16 +20,28 @@ namespace Content.Shared.Atmos
         South = 1 << 1,
         West  = 1 << 2,
         East  = 1 << 3,
+        Up = 1 << 4,
+        Down = 1 << 5,
 
         //Straight pipes
         Longitudinal = North | South,
         Lateral = West | East,
+        Vertical = Up | Down,
 
         //Bends
         NWBend = North | West,
         NEBend = North | East,
         SWBend = South | West,
         SEBend = South | East,
+
+        NUBend = North | Up,
+        NDBend = North | Down,
+        SUBend = South | Up,
+        SDBend = South | Down,
+        EUBend = East | Up,
+        EDBend = East | Down,
+        WUBend = West | Up,
+        WDBend = West | Down,
 
         //T-Junctions
         TNorth = North | Lateral,
@@ -48,7 +61,9 @@ namespace Content.Shared.Atmos
         Straight,
         Bend,
         TJunction,
-        Fourway
+        Fourway,
+        VerticalStraight,
+        VerticalBend
     }
 
     public static class PipeShapeHelpers
@@ -65,6 +80,8 @@ namespace Content.Shared.Atmos
                 PipeShape.Bend => PipeDirection.SWBend,
                 PipeShape.TJunction => PipeDirection.TSouth,
                 PipeShape.Fourway => PipeDirection.Fourway,
+                PipeShape.VerticalStraight => PipeDirection.Vertical,
+                PipeShape.VerticalBend => PipeDirection.SUBend,
                 _ => throw new ArgumentOutOfRangeException(nameof(shape), $"{shape} does not have an associated {nameof(PipeDirection)}."),
             };
         }
@@ -109,6 +126,8 @@ namespace Content.Shared.Atmos
                 PipeDirection.South => Direction.South,
                 PipeDirection.East  => Direction.East,
                 PipeDirection.West  => Direction.West,
+                PipeDirection.Up => Direction.Invalid,
+                PipeDirection.Down => Direction.Invalid,
                 _ => throw new ArgumentOutOfRangeException(nameof(pipeDirection)),
             };
         }
@@ -121,6 +140,8 @@ namespace Content.Shared.Atmos
                 PipeDirection.South => PipeDirection.North,
                 PipeDirection.East  => PipeDirection.West,
                 PipeDirection.West  => PipeDirection.East,
+                PipeDirection.Up  => PipeDirection.Down,
+                PipeDirection.Down  => PipeDirection.Up,
                 _ => throw new ArgumentOutOfRangeException(nameof(pipeDirection)),
             };
         }
@@ -136,11 +157,21 @@ namespace Content.Shared.Atmos
 
                 PipeDirection.Lateral       => PipeShape.Straight,
                 PipeDirection.Longitudinal  => PipeShape.Straight,
+                PipeDirection.Vertical      => PipeShape.VerticalStraight,
 
                 PipeDirection.NEBend        => PipeShape.Bend,
                 PipeDirection.NWBend        => PipeShape.Bend,
                 PipeDirection.SEBend        => PipeShape.Bend,
                 PipeDirection.SWBend        => PipeShape.Bend,
+
+                PipeDirection.NUBend        => PipeShape.VerticalBend,
+                PipeDirection.NDBend        => PipeShape.VerticalBend,
+                PipeDirection.SUBend        => PipeShape.VerticalBend,
+                PipeDirection.SDBend        => PipeShape.VerticalBend,
+                PipeDirection.EUBend        => PipeShape.VerticalBend,
+                PipeDirection.EDBend        => PipeShape.VerticalBend,
+                PipeDirection.WUBend        => PipeShape.VerticalBend,
+                PipeDirection.WDBend        => PipeShape.VerticalBend,
 
                 PipeDirection.TNorth        => PipeShape.TJunction,
                 PipeDirection.TSouth        => PipeShape.TJunction,
@@ -159,11 +190,21 @@ namespace Content.Shared.Atmos
             for (var i = 0; i < PipeDirections; i++)
             {
                 var currentPipeDirection = (PipeDirection) (1 << i);
-                if (!pipeDirection.HasFlag(currentPipeDirection)) continue;
+
+                if (!pipeDirection.HasFlag(currentPipeDirection))
+                    continue;
+
                 var angle = currentPipeDirection.ToAngle();
                 angle += diff;
                 newPipeDir |= angle.GetCardinalDir().ToPipeDirection();
             }
+
+            if (pipeDirection.HasFlag(PipeDirection.Up))
+                newPipeDir |= PipeDirection.Up;
+
+            if (pipeDirection.HasFlag(PipeDirection.Down))
+                newPipeDir |= PipeDirection.Down;
+
             return newPipeDir;
         }
     }

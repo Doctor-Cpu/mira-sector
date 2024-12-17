@@ -35,10 +35,13 @@ public sealed class AtmosPipeAppearanceSystem : EntitySystem
         // get connected entities
         var anyPipeNodes = false;
         HashSet<EntityUid> connected = new();
+        HashSet<int> zLayers = new();
         foreach (var node in container.Nodes.Values)
         {
-            if (node is not PipeNode)
+            if (node is not PipeNode pipe)
                 continue;
+
+            zLayers.Add(pipe.ZLayer);
 
             anyPipeNodes = true;
 
@@ -69,6 +72,16 @@ public sealed class AtmosPipeAppearanceSystem : EntitySystem
             };
         }
 
+        var pipeZLayer = 0;
+        foreach (var zLayer in zLayers)
+        {
+            if (zLayer > pipeZLayer)
+                continue;
+
+            pipeZLayer = zLayer;
+        }
+
         _appearance.SetData(uid, PipeVisuals.VisualState, netConnectedDirections, appearance);
+        _appearance.SetData(uid, PipeVisuals.ZLayer, pipeZLayer, appearance);
     }
 }
