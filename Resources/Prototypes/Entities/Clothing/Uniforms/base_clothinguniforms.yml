@@ -27,6 +27,11 @@
     tags:
     - ClothMade
     - WhitelistChameleon
+  - type: Appearance
+  - type: Stainable
+    icon:
+      sprite: Clothing/stains.rsi/
+      state: jumpsuit
 
 - type: entity
   abstract: true

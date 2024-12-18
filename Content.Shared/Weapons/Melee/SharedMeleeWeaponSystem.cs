@@ -512,7 +512,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         var attackedEvent = new AttackedEvent(meleeUid, user, targetXform.Coordinates);
         RaiseLocalEvent(target.Value, attackedEvent);
 
-        var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
+        var attackingEvent = new AttackingEvent(meleeUid, target.Value, targetXform.Coordinates);
+        RaiseLocalEvent(user, attackingEvent);
+
+        var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage + attackingEvent.BonusDamage, hitEvent.ModifiersList);
+
         var damageResult = Damageable.TryChangeDamage(target, modifiedDamage, origin:user, ignoreResistances:resistanceBypass);
 
         if (damageResult is {Empty: false})
@@ -658,7 +662,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
             var attackedEvent = new AttackedEvent(meleeUid, user, GetCoordinates(ev.Coordinates));
             RaiseLocalEvent(entity, attackedEvent);
-            var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
+
+            var attackingEvent = new AttackingEvent(meleeUid, entity, GetCoordinates(ev.Coordinates));
+            RaiseLocalEvent(user, attackingEvent);
+
+            var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage + attackingEvent.BonusDamage, hitEvent.ModifiersList);
 
             var damageResult = Damageable.TryChangeDamage(entity, modifiedDamage, origin:user);
 

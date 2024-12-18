@@ -1,6 +1,7 @@
 using Content.Shared.Damage;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization;
+using Content.Shared.Inventory;
 
 namespace Content.Shared.Weapons.Melee.Events
 {
@@ -44,6 +45,26 @@ namespace Content.Shared.Weapons.Melee.Events
         {
             Used = used;
             User = user;
+            ClickLocation = clickLocation;
+        }
+    }
+
+    public sealed class AttackingEvent : EntityEventArgs, IInventoryRelayEvent
+    {
+        public EntityUid Used { get; }
+
+        public EntityUid Target { get; }
+
+        public EntityCoordinates ClickLocation { get; }
+
+        public DamageSpecifier BonusDamage = new();
+
+        public SlotFlags TargetSlots { get; } = ~SlotFlags.POCKET;
+
+        public AttackingEvent(EntityUid used, EntityUid target, EntityCoordinates clickLocation)
+        {
+            Used = used;
+            Target = target;
             ClickLocation = clickLocation;
         }
     }

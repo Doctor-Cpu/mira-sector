@@ -19,7 +19,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared.Slippery;
 
-[UsedImplicitly] 
+[UsedImplicitly]
 public sealed class SlipperySystem : EntitySystem
 {
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
@@ -83,7 +83,7 @@ public sealed class SlipperySystem : EntitySystem
     {
         if (HasComp<SpeedModifiedByContactComponent>(args.OtherEntity))
             _speedModifier.AddModifiedEntity(args.OtherEntity);
-    } 
+    }
 
     private bool CanSlip(EntityUid uid, EntityUid toSlip)
     {
@@ -109,8 +109,11 @@ public sealed class SlipperySystem : EntitySystem
         if (attemptCausingEv.Cancelled)
             return;
 
-        var ev = new SlipEvent(other);
-        RaiseLocalEvent(uid, ref ev);
+        var slipEv = new SlipEvent(other);
+        RaiseLocalEvent(uid, ref slipEv);
+
+        var slippedEv = new SlippedEvent(uid);
+        RaiseLocalEvent(other, ref slippedEv);
 
         if (TryComp(other, out PhysicsComponent? physics) && !HasComp<SlidingComponent>(other))
         {
@@ -157,6 +160,14 @@ public sealed class SlipAttemptEvent : EntityEventArgs, IInventoryRelayEvent
 /// <param name="Cancelled">If the slip should be cancelled</param>
 [ByRefEvent]
 public record struct SlipCausingAttemptEvent (bool Cancelled);
+
+/// Raised on an entity that got slipped.
+/// <param name="Slipper">The entity that caused the slip</param>
+[ByRefEvent]
+public readonly record struct SlippedEvent(EntityUid Slipper) : IInventoryRelayEvent
+{
+    SlotFlags IInventoryRelayEvent.TargetSlots => ~SlotFlags.POCKET;
+}
 
 /// Raised on an entity that CAUSED some other entity to slip (e.g., the banana peel).
 /// <param name="Slipped">The entity being slipped</param>
