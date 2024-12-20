@@ -315,6 +315,7 @@ public sealed class InstrumentSystem : SharedInstrumentSystem
         if (!TryComp(uid, out InstrumentComponent? instrument))
             return;
 
+
         if (!instrument.PlayPVS && _player.LocalEntity != instrument.Player)
             return;
 

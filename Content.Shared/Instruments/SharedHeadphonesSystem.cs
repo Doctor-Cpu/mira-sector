@@ -22,10 +22,7 @@ public abstract class SharedHeadphonesSystem : EntitySystem
 
     public void Equip(EntityUid uid, EntityUid wearer, HeadphonesComponent component, SharedInstrumentComponent instrument)
     {
-        var ev = new HeadphonesGetPlayerEvent(GetNetEntity(wearer));
-        RaiseLocalEvent(uid, ev);
-
-        instrument.Player = GetEntity(ev.Player);
+        instrument.Player = wearer;
         Dirty(uid, instrument);
 
         component.Action = _actions.AddAction(wearer, component.ActionId, uid);
