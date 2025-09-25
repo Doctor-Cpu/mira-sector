@@ -1,0 +1,19 @@
+{
+    "version": 1,
+    "size":
+    {
+        "x": 64,
+        "y": 64
+    },
+    "license": "CC-BY-NC-SA-3.0",
+    "copyright": "Doctor-Cpu",
+    "states":
+    [
+        {
+            "name": "regen-unlocked"
+        },
+        {
+            "name": "regen-locked"
+        }
+    ]
+}

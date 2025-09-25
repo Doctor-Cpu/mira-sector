@@ -1,0 +1,15 @@
+- type: psionicDisipline
+  id: Heal
+  name: psionic-disipline-heal-name
+  description: psionic-disipline-heal-desc
+  unlockedIcon:
+    sprite: Interface/Psionics/disiplines.rsi
+    state: regen-unlocked
+  lockedIcon:
+    sprite: Interface/Psionics/disiplines.rsi
+    state: regen-locked
+  effects:
+  - !type:DamageUser
+    damage:
+      groups:
+        Brute: -2

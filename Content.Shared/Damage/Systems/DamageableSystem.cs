@@ -306,7 +306,7 @@ namespace Content.Shared.Damage
             return damageDict;
         }
 
-        internal DamageSpecifier? ChangeDamage(EntityUid uid, DamageSpecifier damage, DamageableComponent  damageable,
+        private DamageSpecifier? ChangeDamage(EntityUid uid, DamageSpecifier damage, DamageableComponent  damageable,
             bool ignoreResistances, bool interruptsDoAfters, EntityUid? origin, BodyPartType? partType = null, EntityUid? body = null)
         {
             var before = new BeforeDamageChangedEvent(damage, origin);
@@ -321,7 +321,7 @@ namespace Content.Shared.Damage
             return TryApplyDamage(uid, damage, ignoreResistances, interruptsDoAfters, damageable, origin, partType, body);
         }
 
-        internal DamageSpecifier? TryApplyDamage(EntityUid uid, DamageSpecifier damage, bool ignoreResistances,
+        private DamageSpecifier? TryApplyDamage(EntityUid uid, DamageSpecifier damage, bool ignoreResistances,
             bool interruptsDoAfters, DamageableComponent damageable, EntityUid? origin, BodyPartType? part = null, EntityUid? body = null)
         {
             // Apply resistances
