@@ -1,0 +1,28 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Based on power gloves from https://github.com/discordia-space/CEV-Eris/commit/55d823b97dda098a1b2ee9edfca7155c753e456e Modified by, inhands and equipped done by Doctor-Cpu",
+    "size":
+    {
+        "x": 32,
+        "y": 32
+    },
+    "states":
+    [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "equipped-HAND",
+            "directions": 4
+        },
+        {
+            "name": "inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right",
+            "directions": 4
+        }
+    ]
+}

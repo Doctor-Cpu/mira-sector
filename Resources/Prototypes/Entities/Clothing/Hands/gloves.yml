@@ -654,3 +654,16 @@
   - type: Tag
     tags:
     - Kangaroo
+
+- type: entity
+  parent: ClothingHandsBase
+  id: ClothingHandsGlovesPsionic
+  name: handheld psionic generator
+  description: Discharge energy for abilities infused from a psionic terminal.
+  components:
+  - type: Sprite
+    sprite: Clothing/Hands/Gloves/psionic.rsi
+  - type: Clothing
+    sprite: Clothing/Hands/Gloves/psionic.rsi
+  - type: Fiber
+    fiberMaterial: fibers-nanomachines
