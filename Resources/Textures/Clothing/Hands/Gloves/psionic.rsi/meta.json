@@ -13,6 +13,16 @@
             "name": "icon"
         },
         {
+            "name": "icon-unlit",
+            "delays":
+            [
+                [
+                    0.8,
+                    1
+                ]
+            ]
+        },
+        {
             "name": "equipped-HAND",
             "directions": 4
         },

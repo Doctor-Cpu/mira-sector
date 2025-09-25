@@ -663,6 +663,10 @@
   components:
   - type: Sprite
     sprite: Clothing/Hands/Gloves/psionic.rsi
+    layers:
+    - state: icon
+    - state: icon-unlit
+      shader: unshaded
   - type: Clothing
     sprite: Clothing/Hands/Gloves/psionic.rsi
   - type: Fiber
