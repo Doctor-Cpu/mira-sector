@@ -671,6 +671,12 @@
     sprite: Clothing/Hands/Gloves/psionic.rsi
   - type: Fiber
     fiberMaterial: fibers-nanomachines
+  - type: PsionicGenerator
+  - type: PsionicGeneratorSelector
+  - type: UserInterface
+    interfaces:
+      enum.PsionicGeneratorSelectorUiKey.Key:
+        type: PsionicGeneratorSelectorBoundUserInterface
   - type: HandBlockerClothing
     requiredHandsLocation:
       Right: 1
