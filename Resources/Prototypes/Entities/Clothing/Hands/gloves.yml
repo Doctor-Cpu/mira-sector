@@ -667,3 +667,6 @@
     sprite: Clothing/Hands/Gloves/psionic.rsi
   - type: Fiber
     fiberMaterial: fibers-nanomachines
+  - type: HandBlockerClothing
+    requiredHandsLocation:
+      Right: 1
