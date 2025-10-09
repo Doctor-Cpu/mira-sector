@@ -1,4 +1,5 @@
 using Content.Shared.Psionics.Effects;
+using Content.Shared.Psionics.Requirements;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -24,4 +25,7 @@ public sealed partial class PsionicDisiplinePrototype : IPrototype
 
     [DataField(required: true)]
     public SpriteSpecifier LockedIcon = default!;
+
+    [DataField]
+    public List<BasePsionicRequirement> Requirements = [];
 }

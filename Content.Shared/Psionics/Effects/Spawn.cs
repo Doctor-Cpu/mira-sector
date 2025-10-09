@@ -8,7 +8,7 @@ using System.Linq;
 namespace Content.Shared.Psionics.Effects;
 
 [DataDefinition, Serializable, NetSerializable]
-public sealed partial class SpawnEffect : BasePsionicEffect
+public sealed partial class Spawn : BasePsionicEffect
 {
     [DataField(required: true)]
     public EntityTableSelector Table;

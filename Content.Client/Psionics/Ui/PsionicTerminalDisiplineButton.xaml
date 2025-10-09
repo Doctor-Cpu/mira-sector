@@ -1,0 +1,22 @@
+<Button
+    xmlns="https://spacestation14.io"
+    Margin="8">
+    <BoxContainer
+        Orientation="Vertical"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        HorizontalExpand="True"
+        VerticalExpand="True">
+        <TextureRect
+            Name="Icon"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            TextureScale="2 2"/>
+        <Label
+            Name="Name"
+            Align="Center"
+            Margin="16"
+            VerticalAlignment="Bottom"
+            VerticalExpand="True"/>
+    </BoxContainer>
+</Button>

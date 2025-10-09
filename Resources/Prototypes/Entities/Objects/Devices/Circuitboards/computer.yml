@@ -542,9 +542,20 @@
   parent: BaseComputerCircuitboard
   id: ComputerTeleporterCircuitboard
   name: teleporter console board
-  description: A computer printed circuit board for a Teleporter console.
+  description: A computer printed circuit board for a teleporter console.
   components:
     - type: Sprite
       state: cpu_science
     - type: ComputerBoard
       prototype: ComputerTeleporter
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: PsionicComputerCircuitboard
+  name: psionic console board
+  description: A computer printed circuit board for a psionic console.
+  components:
+    - type: Sprite
+      state: cpu_science
+    - type: ComputerBoard
+      prototype: ComputerPsionic

@@ -1668,3 +1668,34 @@
       announcementChannel: Science
       speakIc: true
 
+- type: entity
+  id: ComputerPsionic
+  parent: BaseComputer
+  name: psionic console
+  description: Unlock the power of the mind.
+  components:
+  - type: Sprite
+    layers:
+    - map: [ "computerLayerBody" ]
+      state: computer
+    - map: [ "computerLayerKeyboard" ]
+      state: generic_keyboard
+    - map: [ "computerLayerScreen" ]
+      state: psionic
+    - map: [ "computerLayerKeys" ]
+      state: rd_key
+    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      state: generic_panel_open
+  - type: PsionicTerminal
+  - type: ActivatableUI
+    key: enum.PsionicTerminalUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.PsionicTerminalUiKey.Key:
+        type: PsionicTerminalBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: Computer
+    board: PsionicComputerCircuitboard
