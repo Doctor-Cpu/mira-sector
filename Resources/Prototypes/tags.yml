@@ -28,6 +28,9 @@
   id: AnomalyHost
 
 - type: Tag
+  id: AnomalyCore
+
+- type: Tag
   id: AppraisalTool
 
 - type: Tag
@@ -1412,6 +1415,9 @@
 
 - type: Tag
   id: Taser
+
+- type: Tag
+  id: TeleportImmune #won't be teleported by a teleframe
 
 - type: Tag
   id: TimerBrigElectronics
