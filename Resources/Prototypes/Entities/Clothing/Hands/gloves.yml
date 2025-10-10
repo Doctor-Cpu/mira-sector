@@ -673,6 +673,7 @@
     fiberMaterial: fibers-nanomachines
   - type: PsionicGenerator
   - type: PsionicGeneratorSelector
+  - type: PsionicGeneratorClothing
   - type: UserInterface
     interfaces:
       enum.PsionicGeneratorSelectorUiKey.Key:

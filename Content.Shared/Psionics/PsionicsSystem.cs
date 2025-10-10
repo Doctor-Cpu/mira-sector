@@ -1,7 +1,7 @@
-using System.Collections.Frozen;
 using Content.Shared.Popups;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using System.Collections.Frozen;
 
 namespace Content.Shared.Psionics;
 
@@ -21,6 +21,7 @@ public sealed partial class PsionicsSystem : EntitySystem
         UpdateCachedDisiplines();
 
         InitializeGenerator();
+        InitializeMind();
         InitializeTerminal();
 
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypeReload);
